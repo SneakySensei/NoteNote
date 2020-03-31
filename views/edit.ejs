@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Note</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <a href="/" class="header-logo">NoteNote</a>
+    </header>
+    <div class="container">
+        <div class="container-header">
+            <h1>Edit Note</h1>
+            <a href="/index" class="cancel-button">Cancel</a>
+        </div>
+        <div class="item-form-wrapper">
+            <p class="form-label">Edit Note</p>
+            <form action="/update/<%= note.id %>" method="post">
+                <input type="text" value="<%= note.text %>" name="text">
+                <input type="submit" value="Edit">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

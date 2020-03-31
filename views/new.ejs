@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Note</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <a href="/" class="header-logo">NoteNote</a>
+    </header>
+    <div class="container">
+        <div class="container-header">
+            <h1>Add Note</h1>
+        </div>
+        <div class="item-form-wrapper">
+            <p class='form-label'>What do you want me to remember?</p>
+            <form action="/create" method="post">
+                <input type="text" name="text">
+                <input type="submit" value="Add">
+              </form>
+        </div>
+        <a href="/index" class="cancel-button">Go Back</a>
+    </div>
+</body>
+</html>

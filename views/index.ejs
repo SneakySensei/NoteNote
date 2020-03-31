@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoteNote</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <a href="/" class="header-logo">NoteNote</a>
+      </header>
+      <div class="container">
+        <div class="container-header">
+          <h1>My Notes</h1>
+          <a href="/new" class="new-button">+ Add Note</a>
+        </div>
+        <div class="index-table-wrapper">
+          <div class="table-head">
+            <span class="id-column">ID</span>
+            <span>Note</span>
+          </div>
+          <ul class="table-body">
+            <% notes.forEach((note) => { %>
+              <li>
+                <div class="item-data">
+                  <span class="id-column"><%= note.id %></span>
+                  <span class="text-column"><%= note.text %></span>
+                </div>
+                <div class="item-menu">
+                  <form action="/delete/<%= note.id %>" method="post">
+                    <input type="submit" value="Delete">
+                  </form>
+                  <a href="/edit/<%= note.id %> ">Edit</a>
+                </div>
+              </li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+</body>
+</html>
