@@ -3,13 +3,15 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 require('dotenv').config();
 
+const port = process.env.PORT
+
 const app = express();
 app.use(bodyParser.urlencoded({extended:false}));
 
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: process.env.dbPassword,
+    password: process.env.DB_PASSWORD,
     database: 'notenote',
     charset: 'utf8mb4',
     multipleStatements: true
@@ -71,6 +73,6 @@ app.post('/update/:id', (req, res) => {
     });
 });
 
-app.listen(process.env.port, ()=>{
+app.listen(port, ()=>{
     console.log("Listening on port 3000");
 });
