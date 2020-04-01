@@ -27,12 +27,12 @@
                 <div class="item-data">
                   <span class="id-column"><%= id++ %></span>
                   <span class="text-column"><%= note.text %></span>
-                </div>
-                <div class="item-menu">
-                  <form action="/delete/<%= note.rowid %>" method="post">
-                    <input type="submit" value="Delete">
-                  </form>
-                  <a href="/edit/<%= note.rowid %> ">Edit</a>
+                  <div class="item-menu">
+                    <form action="/delete/<%= note.rowid %>" method="post">
+                      <input type="submit" value="Delete">
+                    </form>
+                    <a href="/edit/<%= note.rowid %> ">Edit</a>
+                  </div>
                 </div>
               </li>
             <% }) %>

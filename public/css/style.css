@@ -199,6 +199,7 @@
   
   .id-column {
     width: 72px;
+    height: auto;
     text-align: center;
   }
   
@@ -207,12 +208,12 @@
   }
   
   .table-body li {
-    height: 72px;
     border: 1px solid #f0f4f9;
     border-top: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 20px 0;
   }
   
   .table-body .id-column {
@@ -221,7 +222,9 @@
   }
   
   .table-body .text-column {
+    width: 528px;
     font-size: 14px;
+    margin-top:2px;
     font-weight: 500;
     color: #8491a5;
   }
@@ -232,6 +235,8 @@
   
   .item-menu {
     display: flex;
+    width:120px;
+    height:auto;
   }
   
   .item-menu form {
