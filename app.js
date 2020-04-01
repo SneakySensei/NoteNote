@@ -1,41 +1,31 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
+const sqlite3 = require('sqlite3');
 require('dotenv').config();
 
 const port = process.env.PORT
 
 const app = express();
+
 app.use(bodyParser.urlencoded({extended:false}));
+app.use(express.static('public')); //redefining where static files are stored
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: process.env.DB_PASSWORD,
-    database: 'notenote',
-    charset: 'utf8mb4',
-    multipleStatements: true
+var file = "notenote.db";
+const db = new sqlite3.Database(file);
+
+db.serialize(function() {
+    db.run("CREATE TABLE IF NOT EXISTS notes ('text' LONGTEXT NULL)");
 });
-
-connection.connect((err) => {
-    if(err){
-      console.log('Error connecting to Db');
-      console.log(err);
-      return;
-    }
-    console.log('Connection to Db established');
-});
-
-app.use(express.static('public'));
 
 app.get("/", (req, res) => {
     res.render('top.ejs');
 });
 
 app.get('/index', (req, res) => {
-    connection.query('SELECT * FROM notes', (error, results) => {
-        res.render('index.ejs', {notes: results});
-    });
+
+    db.all("SELECT rowid, text FROM notes", (error, result) => {
+        res.render('index.ejs', {notes: result});
+    })
 });
 
 app.get('/new', (req, res) => {
@@ -43,30 +33,25 @@ app.get('/new', (req, res) => {
 })
 
 app.post('/create', (req, res) => {
-    connection.query('INSERT INTO notes (text) VALUES (?)', [req.body.text], (error, results) => {
+    db.all('INSERT INTO notes (text) VALUES (?)', [req.body.text], (error, results) => {
         res.redirect('/index');
     });
 });
 
 app.post('/delete/:id', (req, res) => {
-    // delete the row
-    // remove the id column momentarily
-    // recreate the id column to reassign ids
-    connection.query('DELETE FROM notes WHERE id = ?; ALTER TABLE notes DROP id; ALTER TABLE notes ADD id MEDIUMINT NOT NULL AUTO_INCREMENT Primary key;',
-    [req.params.id],
-    (error, results) => {
+    db.all('DELETE FROM notes WHERE rowid = ?', [req.params.id], (error, results) => {
         res.redirect('/index');
     });
 });
 
 app.get('/edit/:id', (req, res) => {
-    connection.query('SELECT * FROM notes WHERE id = ?', [req.params.id], (error, results) => {
+    db.all('SELECT rowid, text FROM notes WHERE rowid = ?', [req.params.id], (error, results) => {
         res.render('edit.ejs', {note: results[0]});
     });
 });
 
 app.post('/update/:id', (req, res) => {
-    connection.query('UPDATE notes SET text = ? WHERE id = ?',
+    db.all('UPDATE notes SET text = ? WHERE rowid = ?',
     [req.body.text, req.params.id],
     (error, results) => {
         res.redirect('/index');

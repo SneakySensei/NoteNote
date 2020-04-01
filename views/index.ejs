@@ -21,17 +21,18 @@
             <span>Note</span>
           </div>
           <ul class="table-body">
+            <% var id = 1; %> 
             <% notes.forEach((note) => { %>
               <li>
                 <div class="item-data">
-                  <span class="id-column"><%= note.id %></span>
+                  <span class="id-column"><%= id++ %></span>
                   <span class="text-column"><%= note.text %></span>
                 </div>
                 <div class="item-menu">
-                  <form action="/delete/<%= note.id %>" method="post">
+                  <form action="/delete/<%= note.rowid %>" method="post">
                     <input type="submit" value="Delete">
                   </form>
-                  <a href="/edit/<%= note.id %> ">Edit</a>
+                  <a href="/edit/<%= note.rowid %> ">Edit</a>
                 </div>
               </li>
             <% }) %>

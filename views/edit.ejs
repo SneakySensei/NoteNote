@@ -17,7 +17,7 @@
         </div>
         <div class="item-form-wrapper">
             <p class="form-label">Edit Note</p>
-            <form action="/update/<%= note.id %>" method="post">
+            <form action="/update/<%= note.rowid %>" method="post">
                 <input type="text" value="<%= note.text %>" name="text">
                 <input type="submit" value="Edit">
             </form>
